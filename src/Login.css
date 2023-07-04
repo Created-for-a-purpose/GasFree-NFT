@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0fab7;
+    background-color: #eafac8;
     margin: 0;
     padding: 0;
   }
@@ -20,6 +20,14 @@ body {
     color: #333333;
   }
 
+  h3 {
+    font-size: 50px;
+    font-family: cursive;
+    margin-left: 2px;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+
   .desc{
     font-size: 27px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -33,6 +41,7 @@ body {
     font-size: 16px;
     background-color: #ff5500;
     color: #ffffff;
+    font-family: cursive;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -46,7 +55,7 @@ body {
   p {
     font-size: 16px;
     margin-bottom: 10px;
-    color: #666666;
+    color: #0a0723;
   }
   
   .buttonWrapper {
@@ -76,4 +85,27 @@ body {
     margin-left: 2px;
     margin-bottom: 20px;
   }
+
+  .inputField {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #131151;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .inputField:focus {
+    outline: none;
+    box-shadow: 2px 2px 2px 3px rgba(86, 206, 250, 0.884);
+  }
+  
+  .inputField::placeholder {
+    color: #999999;
+  }
+  
   

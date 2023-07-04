@@ -44,3 +44,10 @@
   width: 40px;
   height: 40px;
 }
+
+.divider {
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid #333333;
+  margin-left: 10px;
+}

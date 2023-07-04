@@ -17,6 +17,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [provider, setProvider] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [input, setInput] = useState('');
 
   useEffect(() => {
     let configureLogin;
@@ -88,6 +89,7 @@ export default function Login() {
     sdkRef.current.hideWallet()
     setSmartAccount(null)
     enableInterval(false)
+    setIsLoggedIn(false);
   }
 
   const mint=async ()=>{
@@ -99,6 +101,32 @@ export default function Login() {
         }
         const txresponse = await smartAccount.sendTransaction({transaction: tx})
         await txresponse.wait()
+  }
+
+  const changeHandler=(e)=>{
+    setInput(e.target.value)
+  }
+
+  const transfer = async ()=>{
+    if(input==='') return;
+    const contract = new ethers.Contract(contractAddress, abi, provider)
+    const tokens = await contract.tokensOfOwner(smartAccount.address)
+    if(tokens.length===0) return;
+
+    const txs =[]
+    for(let i=0;i<tokens.length;i++){
+      const transfer = await contract.populateTransaction.TransferFrom(smartAccount.address, input, tokens[i])
+      const tx = {
+        to: contractAddress,
+        data: transfer.data,
+      }
+      txs.push(tx)
+    }
+    
+    const txresponse = await smartAccount.sendTransactionBatch({transactions: txs})
+    console.log(txresponse)
+    await txresponse.wait()
+    setInput('')
   }
 
   return (
@@ -124,10 +152,19 @@ export default function Login() {
           <div className="buttonWrapper">
             <h3>Smart account address:</h3>
             <p>{smartAccount.address}</p>
+            <h3>Your EOA:</h3>
+            <p>{smartAccount.signer._address}</p>
             <button onClick={() => window.open(`https://mumbai.polygonscan.com/address/${smartAccount.address}`, '_blank')}>View on PolygonScan</button>
             <button onClick={logout}>Logout</button>
+            <p>---------------------------------------------------------------------------------------</p>
             <Dashboard smartAccount={smartAccount} provider={provider}/>
             <button onClick={mint} >Mint Gas Free!</button>
+            <p>---------------------------------------------------------------------------------------</p>
+            <p>In a single click, you can transfer all your NFTs to another account !</p>
+            <p>Biconomy batch transactions</p>
+            <input placeholder='--address--' className='inputField' onChange={changeHandler}></input>
+            <button onClick={transfer}>Transfer NFTs (GasFree)</button>
+            <p>Import from: {contractAddress}</p>
           </div>
         )
       }
