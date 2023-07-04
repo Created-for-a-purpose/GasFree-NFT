@@ -19,8 +19,8 @@ const Home = () => {
     </div>
     <footer className={styles.footer}>
       <span>Powered by Biconomy!</span>
-      <img src={logo} alt="Logo" className={styles.logo} />
     </footer>
+      <img src={logo} alt="Logo" className={styles.logo} />
   </div>
     )
 }

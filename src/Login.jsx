@@ -136,13 +136,13 @@ export default function Login() {
       <h1>Don't have a Web3 wallet ?</h1>
       <h1 className='desc'>
       Don't worry, we got your back.<br/><br/>
-      Now you can login with your social media account and mint NFTs gas free !
+      Now you can login with your social media account and mint NFTs completely gas free !
       </h1>
       <h1 className='desc'>How? Using Biconomy Social Login</h1>
       </>
        }
       {
-        !smartAccount && !loading && <button onClick={login}>Login</button>
+        !smartAccount && !loading && <button className='loginButton' onClick={login}>Login</button>
       }
       {
         loading && <p>Loading account details...</p>
@@ -161,7 +161,7 @@ export default function Login() {
             <button onClick={mint} >Mint Gas Free!</button>
             <p>---------------------------------------------------------------------------------------</p>
             <p>In a single click, you can transfer all your NFTs to another account !</p>
-            <p>Biconomy batch transactions</p>
+            <p>Powered by Biconomy batch transactions</p>
             <input placeholder='--address--' className='inputField' onChange={changeHandler}></input>
             <button onClick={transfer}>Transfer NFTs (GasFree)</button>
             <p>Import from: {contractAddress}</p>

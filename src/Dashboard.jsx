@@ -22,7 +22,7 @@ const Dashboard = ({smartAccount, provider}) => {
         return (
         <div key={index} className='card'>
             <p>Token ID: {token.toString()}</p>
-            {/* <img src={`https://beige-asleep-chinchilla-881.mypinata.cloud/ipfs/QmfFJZEfRJFf5auRT1PfjKWukmsHgwDxcv8FCeMaUB4ck5/${token.toString()}.png`} alt={`Token ${token.toString()}`} /> */}
+            <img src={`https://beige-asleep-chinchilla-881.mypinata.cloud/ipfs/QmfFJZEfRJFf5auRT1PfjKWukmsHgwDxcv8FCeMaUB4ck5/${token.toString()}.png`} alt={`Token ${token.toString()}`} />
         </div>
         )})
      }
