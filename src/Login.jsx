@@ -34,12 +34,12 @@ export default function Login() {
   async function login() {
     if (!sdkRef.current) {
       const socialLoginSDK = new SocialLogin()
-      const signature1 = await socialLoginSDK.whitelistUrl('http://localhost:3000/')
+      const signature1 = await socialLoginSDK.whitelistUrl('https://cold-block-9657.on.fleek.co/')
       await socialLoginSDK.init({
         chainId: ethers.utils.hexValue(ChainId.POLYGON_MUMBAI).toString(),
         network: "testnet",
         whitelistUrls: {
-          'http://localhost:3000/': signature1,
+          'https://cold-block-9657.on.fleek.co/': signature1,
         }
       })
       sdkRef.current = socialLoginSDK
