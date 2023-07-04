@@ -6,6 +6,8 @@ import SocialLogin from "@biconomy/web3-auth"
 import { ChainId } from "@biconomy/core-types";
 import { ethers } from 'ethers'
 import SmartAccount from "@biconomy/smart-account";
+import Dashboard from './Dashboard';
+import {abi, contractAddress} from './constants'
 
 export default function Login() {
   const navigate = useNavigate();
@@ -60,6 +62,12 @@ export default function Login() {
       const smartAccount = new SmartAccount(web3Provider, {
         activeNetworkId: ChainId.POLYGON_MUMBAI,
         supportedNetworksIds: [ChainId.POLYGON_MUMBAI],
+        networkConfig: [
+          {
+            chainId: ChainId.POLYGON_MUMBAI,
+            dappAPIKey: 'ctCFUOHSG.22a421c6-1e05-4442-8cc3-7c1e269c4518',
+          },
+        ],
       })
       await smartAccount.init()
       setSmartAccount(smartAccount)
@@ -80,8 +88,15 @@ export default function Login() {
     enableInterval(false)
   }
 
-  const dashboard = () => {
-    navigate('/dashboard')
+  const mint=async ()=>{
+        const contract = new ethers.Contract(contractAddress, abi, provider)
+        const mintnft = await contract.populateTransaction.mint()
+        const tx = {
+          to: contractAddress,
+          data: mintnft.data,
+        }
+        const txresponse = await smartAccount.sendTransaction({transaction: tx})
+        await txresponse.wait()
   }
 
   return (
@@ -98,9 +113,9 @@ export default function Login() {
           <div className="buttonWrapper">
             <h3>Smart account address:</h3>
             <p>{smartAccount.address}</p>
-            <button onClick={dashboard}>Dashboard</button>
-            <button onClick={() => window.open(`https://polygonscan.com/address/${smartAccount.address}`, '_blank')}>View on PolygonScan</button>
-            {/* <Counter smartAccount={smartAccount} provider={provider} /> */}
+            <button onClick={() => window.open(`https://mumbai.polygonscan.com/address/${smartAccount.address}`, '_blank')}>View on PolygonScan</button>
+            <button onClick={mint} >Mint Gas Free</button>
+            <Dashboard smartAccount={smartAccount} provider={provider} />
             <button onClick={logout}>Logout</button>
           </div>
         )
