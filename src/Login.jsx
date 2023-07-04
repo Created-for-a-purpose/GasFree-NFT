@@ -1,4 +1,4 @@
-import './App.css'
+import './Login.css'
 import { useNavigate } from "react-router-dom";
 import "@biconomy/web3-auth/dist/src/style.css"
 import { useState, useEffect, useRef } from 'react'
@@ -16,6 +16,7 @@ export default function Login() {
   const sdkRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [provider, setProvider] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     let configureLogin;
@@ -48,6 +49,7 @@ export default function Login() {
     } else {
       setupSmartAccount()
     }
+    setIsLoggedIn(true);
   }
 
   async function setupSmartAccount() {
@@ -100,8 +102,17 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h1>Biconomy SDK Auth + Gasless Transactions</h1>
+    <div className='container'>
+      { !isLoggedIn &&
+      <>
+      <h1>Don't have a Web3 wallet ?</h1>
+      <h1 className='desc'>
+      Don't worry, we got your back.<br/><br/>
+      Now you can login with your social media account and mint NFTs gas free !
+      </h1>
+      <h1 className='desc'>How? Using Biconomy Social Login</h1>
+      </>
+       }
       {
         !smartAccount && !loading && <button onClick={login}>Login</button>
       }
@@ -114,9 +125,9 @@ export default function Login() {
             <h3>Smart account address:</h3>
             <p>{smartAccount.address}</p>
             <button onClick={() => window.open(`https://mumbai.polygonscan.com/address/${smartAccount.address}`, '_blank')}>View on PolygonScan</button>
-            <button onClick={mint} >Mint Gas Free</button>
-            <Dashboard smartAccount={smartAccount} provider={provider} />
             <button onClick={logout}>Logout</button>
+            <Dashboard smartAccount={smartAccount} provider={provider}/>
+            <button onClick={mint} >Mint Gas Free!</button>
           </div>
         )
       }

@@ -1,6 +1,6 @@
 import './App.css';
 import Login from './Login'
-import Dashboard from './Dashboard'
+import Home from './Home'
 import "@rainbow-me/rainbowkit/styles.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
@@ -11,7 +11,7 @@ import { publicProvider } from "wagmi/providers/public";
 const { chains, publicClient } = configureChains([sepolia], [publicProvider()]);
 
 const { connectors } = getDefaultWallets({
-  appName: "DAO-tut",
+  appName: "nft",
   projectId: "f1881124fe9b66e89480103e523c0ec9",
   chains,
 });
@@ -28,8 +28,8 @@ function App() {
       <RainbowKitProvider chains={chains}>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route exact path="/dashboard" element={<Dashboard />} />
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </RainbowKitProvider>
