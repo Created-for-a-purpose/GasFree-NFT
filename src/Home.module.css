@@ -5,6 +5,7 @@
   justify-content: center;
   height: 100vh;
   background-color: #eafac8;
+  background:linear-gradient(#ebf991ad,rgb(177, 236, 247));
 }
 
 .header {
